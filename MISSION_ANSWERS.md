@@ -126,9 +126,13 @@ Thứ tự khởi động khớp với `depends_on`: redis và qdrant lên trư�
 
 ### Exercise 3.1 / 3.2: Deploy agent Part 6
 
-- Nền tảng chính: ⏳ (Railway, dùng `06-lab-complete/railway.toml`, builder `DOCKERFILE`, `healthcheckPath = "/health"`)
-- URL: ⏳ (ghi trong `DEPLOYMENT.md`)
-- Ảnh: `screenshots/dashboard.png`, `screenshots/running.png`, `screenshots/test.png` ⏳
+- Nền tảng: **Railway**, dùng `06-lab-complete/railway.toml` (builder `DOCKERFILE`, `healthcheckPath = "/health"`). Project gồm service `agent` (build từ Dockerfile) và service `redis` (`redis:7-alpine`, chỉ mở trên private network).
+- URL: **https://agent-production-1fb71cee.up.railway.app** (chi tiết trong `DEPLOYMENT.md`)
+- Kết quả 4 lệnh tự kiểm (chạy thật, 2026-11-25T17:14:23Z): `/health` **200**, `/ready` **200** (`{"status":"ready","redis":"ok"}`), `POST /ask` không key **401**, có key **200**. Checker `--public-url` báo ✅ tiêu chí 12.
+- Hai lỗi gặp khi deploy và cách sửa:
+  1. Build fail `header key "exclude-patterns" contains value with non-printable ASCII characters`: `.dockerignore` có comment tiếng Việt có dấu, và đường dẫn thư mục có chữ "Nguyễn". Sửa: comment chỉ dùng ASCII, upload từ thư mục có đường dẫn ASCII.
+  2. Deploy xong nhưng URL trả 502: domain trỏ cổng 8000, còn Railway cấp `PORT` khác. Sửa: đặt biến `PORT=8000`, vì `CMD` trong Dockerfile đọc `${PORT:-8000}`.
+- Ảnh: `screenshots/test.png` (output 4 lệnh tự kiểm + checker). `screenshots/dashboard.png`, `screenshots/running.png` ⏳ chụp từ giao diện Railway.
 
 ### So sánh `railway.toml` và `render.yaml`
 
@@ -359,3 +363,4 @@ Bài làm có dùng trợ lý AI (Claude Code, mô hình Claude Opus) trong VS C
 | Part 7 Bước 2: chạy benchmark, chaos, chụp ảnh | Script tự động: Locust headless scale 1/3, đổi env cho thí nghiệm A–E, hỏi `/api/v1/alerts` mỗi 2 s để đo thời gian tới lúc firing, chụp ảnh bằng headless Chrome, lấy trace qua Jaeger API v3 | Mở và xem lại từng ảnh trước khi nộp; số trong báo cáo lấy từ CSV, JSON và log thật. Khi thấy log của trace cũ đã mất (container bị tạo lại trong chaos), chạy lại một lượt tải ngắn để lấy trace và log khớp `trace_id`. |
 | Part 1, 2, 4, 5: chạy lệnh thật | Script chạy curl, build image, compose, `test_stateless.py` | Output dán trong file này là output thật, token đã che. |
 | Soạn câu trả lời Part 1–5 | Bản nháp câu trả lời | Đối chiếu từng ý với code trong `01-…` tới `05-…`. |
+| Part 3: deploy lên Railway | Đăng nhập bằng mã thiết bị không được, nên dùng workspace token: tạo project/service/biến/domain qua Railway GraphQL API, upload bằng `railway up`. Chẩn đoán 2 lỗi deploy (`.dockerignore` có ký tự ngoài ASCII; lệch `PORT` gây 502) | Chạy 4 lệnh tự kiểm vào URL public: 200/200/401/200; checker `--public-url` ✅. Token Railway và `AGENT_API_KEY` lưu ngoài repo, đã kiểm tra không có trong output hay trong commit. |
