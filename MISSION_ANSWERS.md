@@ -132,7 +132,7 @@ Thứ tự khởi động khớp với `depends_on`: redis và qdrant lên trư�
 - Hai lỗi gặp khi deploy và cách sửa:
   1. Build fail `header key "exclude-patterns" contains value with non-printable ASCII characters`: `.dockerignore` có comment tiếng Việt có dấu, và đường dẫn thư mục có chữ "Nguyễn". Sửa: comment chỉ dùng ASCII, upload từ thư mục có đường dẫn ASCII.
   2. Deploy xong nhưng URL trả 502: domain trỏ cổng 8000, còn Railway cấp `PORT` khác. Sửa: đặt biến `PORT=8000`, vì `CMD` trong Dockerfile đọc `${PORT:-8000}`.
-- Ảnh: `screenshots/test.png` (output 4 lệnh tự kiểm + checker). `screenshots/dashboard.png`, `screenshots/running.png` ⏳ chụp từ giao diện Railway.
+- Ảnh: `screenshots/test.png` (output 4 lệnh tự kiểm + checker). `screenshots/dashboard.png` (2 service Online), `screenshots/running.png` (deployment ACTIVE).
 
 ### So sánh `railway.toml` và `render.yaml`
 

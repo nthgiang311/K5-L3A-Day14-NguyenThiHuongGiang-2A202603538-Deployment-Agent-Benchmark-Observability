@@ -107,5 +107,5 @@ INFO:     Application startup complete.
 ## Screenshots
 
 - [Test results](screenshots/test.png): output 4 lệnh tự kiểm + checker
-- [Deployment dashboard](screenshots/dashboard.png) ⏳ (chụp từ Railway)
-- [Service running](screenshots/running.png) ⏳ (chụp từ Railway)
+- [Deployment dashboard](screenshots/dashboard.png): project `day14-production-agent`, 2 service `agent` + `redis` đều Online
+- [Service running](screenshots/running.png): service `agent`, deployment ACTIVE, "Deployment successful"
