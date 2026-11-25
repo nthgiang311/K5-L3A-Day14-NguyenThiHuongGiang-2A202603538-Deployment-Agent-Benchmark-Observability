@@ -21,7 +21,7 @@ env/
 .idea/
 .DS_Store
 
-# Không cần trong image
+# Not needed in the image (ASCII only: Railway rejects non-ASCII here)
 benchmark-observability/
 check_production_ready.py
 docker-compose.yml
