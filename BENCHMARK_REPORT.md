@@ -1,6 +1,6 @@
 # Benchmark & Observability Report — Day 14
 
-> Mọi con số dưới đây lấy từ file JSON trong `reports/` (và CSV trong `benchmark-results/` khi có). Mục nào chưa đo được ghi rõ **⏳ chưa đo**, không ước lượng.
+> Mọi con số dưới đây lấy từ file JSON trong `reports/` (và CSV trong `benchmark-results/` khi có). Không có số ước lượng.
 
 **Họ tên:** Nguyễn Thị Hương Giang
 **Ngày chạy:** 2026-11-25

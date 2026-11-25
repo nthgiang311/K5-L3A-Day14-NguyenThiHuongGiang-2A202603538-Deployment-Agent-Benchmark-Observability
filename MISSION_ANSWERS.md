@@ -1,6 +1,6 @@
 # Day 14 Lab — Mission Answers
 
-> Mục nào đánh dấu **⏳** là bước cần chạy hoặc chụp thêm trước khi nộp. Không ghi số chưa đo.
+> Mọi output và con số trong file này lấy từ lần chạy thật; không có số ước lượng.
 
 ## Part 1: Localhost vs Production
 
